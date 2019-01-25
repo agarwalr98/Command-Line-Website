@@ -1,5 +1,6 @@
 const  DirFunctions  = require('./helpers/folder.js');
 var fs = require('fs');
+const cmd=require('node-cmd');
 var format = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
 
 module.exports = function(app, passport){
@@ -53,6 +54,21 @@ module.exports = function(app, passport){
 			//return list of files contained in a folder.
     		return  res.send( { value : items });
 		})
+
+    });
+
+    app.get('/ls-l', function(req, res) {
+		var path = "./user_data" +  "/"+ req.user.local.email + "/" + req.query.directory;
+		cmd.get(
+        'ls -l '+ path,
+        function(err, data, stderr){
+				      
+        	// console.log(data);
+            res.send({
+            	value:data});
+            
+        }
+    );
 
     });
 
