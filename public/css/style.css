@@ -15,6 +15,7 @@
 }
 .command,.result{
   padding-bottom: 0.2vw;
+  
 }
 .cursor{
   -webkit-animation: 1s blink infinite;

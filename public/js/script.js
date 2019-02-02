@@ -574,18 +574,8 @@ $('textarea').keyup(function(e) {
 
             for(num = 0;num < data.value.length ;num++)
             {
-                var print = data.value.split("\n")[num].trim();
-                print=print.split(" ");
-                var str="";
-                for(var i=0;i<print.length;i++)
-                {
-                  str = str + " " + print[i];
-                }
-//                 var columnify = require('columnify')
-// var columns = columnify(print, options)
-
-                $('.terminal-output').append('<div class="folder"><div style="width: 100%;"><span> ' + str + '<br></span></div></div>');
-                reset();
+                var print = data.value[num];
+                $('.terminal-output').append('<div class="command"><div style="width: 100%;"><span> ' + print + '<br></span></div></div>');
 
             }              
             $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span><br></span></div></div>');            

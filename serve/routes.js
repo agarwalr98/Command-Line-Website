@@ -1,7 +1,9 @@
 const  DirFunctions  = require('./helpers/folder.js');
 var fs = require('fs');
 const cmd=require('node-cmd');
+var columnify = require('columnify')
 var format = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+
 
 module.exports = function(app, passport){
 	app.get('/', function(req, res){
@@ -57,15 +59,23 @@ module.exports = function(app, passport){
 
     });
 
-    app.get('/ls-l', function(req, res) {
+    app.get('/ls -l', function(req, res) {
+
 		var path = "./user_data" +  "/"+ req.user.local.email + "/" + req.query.directory;
+		var list =[];
 		cmd.get(
         'ls -l '+ path,
         function(err, data, stderr){
-				      
-        	// console.log(data);
+        	var num = 0;
+        	while(data.split("\n")[num].trim() != "")
+        	{
+        		var print = data.split("\n")[num].trim();
+        		list.push(print);
+        		num++ ;
+
+        	} 	
             res.send({
-            	value:data});
+            	value:list});
             
         }
     );
