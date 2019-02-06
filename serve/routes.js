@@ -61,7 +61,6 @@ module.exports = function(app, passport){
     });
 
     app.get('/ls-l', function(req, res) {
-    	console.log(req.user);
 		var path = "./user_data" +  "/"+ req.user.local.email + "/" + req.query.directory;
 		var list =[];
 		cmd.get(
