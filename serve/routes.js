@@ -51,6 +51,7 @@ module.exports = function(app, passport){
 	// The request will contain the path where files has to list.
 	app.get('/ls', function(req, res) {
 		var path = "./user_data" +  "/"+ req.user.local.email + "/" + req.query.directory;
+		
 		fs.readdir(path ,function(err,items)
 		{
 			//return list of files contained in a folder.
@@ -59,8 +60,8 @@ module.exports = function(app, passport){
 
     });
 
-    app.get('/ls -l', function(req, res) {
-
+    app.get('/ls-l', function(req, res) {
+    	console.log(req.user);
 		var path = "./user_data" +  "/"+ req.user.local.email + "/" + req.query.directory;
 		var list =[];
 		cmd.get(

@@ -571,11 +571,59 @@ $('textarea').keyup(function(e) {
               $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root@' + username + ': ~' + directory+ '$ </span><span>' + command + '</span></div></div>'); 
             else  
               $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root@' + username + ': ~/' + directory+ '$ </span><span>' + command + '</span></div></div>'); 
+            
+            var list = [];
+            for(num =0;num<data.value.length;num++)
+            {
+              list[num] = data.value[num];
+
+            }
+            
+            var max=1,max2=2;
+            for(num =1;num<data.value.length;num++)
+            {
+                var print = data.value[num];
+                print = print.split(" ")[1].trim();                           
+                if(max<print)
+                  max = print;
+                print = data.value[num];
+                var index_secondLast = print.indexOf( ' ',5*print.indexOf( ' ' )  );
+                var new_print = print.slice(index_secondLast-2,index_secondLast);
+                if(max2<new_print)
+                  max2 = new_print;
+            }
+            
+            for(num =1;num<data.value.length;num++)
+            {
+
+                if(max>9)
+                {
+                  var temp = list[num].split(" ")[2].trim(); 
+                  if(temp <=9)
+                  {
+                    var index_str = list[num].indexOf(temp); 
+                    list[num] = list[num].slice(0,index_str-1) + "0" + list[num].slice(index_str,list[num].length);
+                    
+                  }
+                }
+                 if(max2>9)
+                {
+                  var index_secondLast = print.indexOf( ' ',5*print.indexOf( ' ' )  );
+                  var temp = list[num].slice(index_secondLast-2,index_secondLast);
+                  if(temp <=9)
+                  {
+                    var index_str = list[num].indexOf(temp);
+                    list[num] = list[num].slice(0,index_secondLast-2) + "0" + list[num].slice(index_secondLast-1,list[num].length);
+                    
+                  }
+                }
+            }
+           
 
             for(num = 0;num < data.value.length ;num++)
             {
                 var print = data.value[num];
-                $('.terminal-output').append('<div class="command"><div style="width: 100%;"><span> ' + print + '<br></span></div></div>');
+                $('.terminal-output').append('<div class="command"><div style="width: 100%;"><span> ' + list[num] + '<br></span></div></div>');
 
             }              
             $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span><br></span></div></div>');            
